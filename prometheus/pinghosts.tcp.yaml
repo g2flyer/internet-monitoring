@@ -1,0 +1,5 @@
+- targets:  # host:port;humanname;routing;switch
+    - vpngp.intel.com:443;vpngp;external;fastmesh
+    - vpngp-jf.intel.com:443;vpngp-jf;external;fastmesh
+    - 10.232.36.1:80;fastmesh;local;fastmesh
+

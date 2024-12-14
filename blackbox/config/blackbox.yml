@@ -9,6 +9,9 @@ modules:
       method: POST
   tcp_connect:
     prober: tcp
+    tcp:
+      preferred_ip_protocol: "ip4"
+      ip_protocol_fallback: false
   pop3s_banner:
     prober: tcp
     tcp:
