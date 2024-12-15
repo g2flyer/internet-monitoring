@@ -58,7 +58,7 @@ http://localhost:9090/graph?g0.expr=probe_http_status_code&g0.tab=1 shows promet
 
 http://localhost:9115 blackbox exporter endpoint. Lets you see what have failed/succeded.
 
-http://localhost:9696/metrics speedtest exporter endpoint. Does take ~30 seconds to show its result as it runs an actual speedtest when requested.
+http://localhost:9469/metrics speedtest exporter endpoint. Does take ~30 seconds to show its result as it runs an actual speedtest when requested.
 
 ## Thanks and a disclaimer
 

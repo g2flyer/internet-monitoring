@@ -57,17 +57,15 @@ services:
     networks:
       - back-tier
 
+  # exporter from https://github.com/g2flyer/prometheus-speedtest-exporter
   speedtest:
     tty: true
     stdin_open: true
     expose:
-      - 9696
+      - 9469
     ports:
-      - ${LISTEN_HOST}9696:9696
-    #image: stefanwalther/speedtest-exporter
-    image: miguelndecarvalho/speedtest-exporter
-    environment:
-      - SPEEDTEST_PORT=9696
+      - ${LISTEN_HOST}9469:9469
+    image: prometheus-speedtest-exporter
     restart: always
     networks:
       - back-tier

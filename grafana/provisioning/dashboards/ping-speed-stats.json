@@ -109,7 +109,7 @@
               }
             ]
           },
-          "unit": "Bps"
+          "unit": "bps"
         },
         "overrides": [
           {
@@ -126,12 +126,102 @@
                 }
               }
             ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Upload (OTC Connections - Portland, OR)"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "super-light-purple",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Upload (WiLine Networks - Portland, OR)"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "super-light-green",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Download (Sherwood Broadband - Sherwood, OR)"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-blue",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Download (OTC Connections - Portland, OR)"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-purple",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Download (WiLine Networks - Portland, OR)"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-green",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Upload (Sherwood Broadband - Sherwood, OR)"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "super-light-blue",
+                  "mode": "fixed"
+                }
+              }
+            ]
           }
         ]
       },
       "gridPos": {
-        "h": 9,
-        "w": 12,
+        "h": 17,
+        "w": 14,
         "x": 0,
         "y": 1
       },
@@ -162,12 +252,12 @@
             "uid": "P1809F7CD0C75ACF3"
           },
           "editorMode": "code",
-          "expr": "(speedtest_upload_bits_per_second)",
+          "expr": "speedtest_upload_bytes_per_seconds*8",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "Upload",
+          "legendFormat": "Up        ({{server_id}}: {{server_name}})",
           "range": true,
-          "refId": "A"
+          "refId": "Upload"
         },
         {
           "datasource": {
@@ -175,12 +265,12 @@
             "uid": "P1809F7CD0C75ACF3"
           },
           "editorMode": "code",
-          "expr": "speedtest_download_bits_per_second",
+          "expr": "speedtest_download_bytes_per_seconds*8",
           "hide": false,
           "instant": false,
-          "legendFormat": "Download",
+          "legendFormat": "Down ({{server_id}}: {{server_name}})",
           "range": true,
-          "refId": "B"
+          "refId": "Download"
         }
       ],
       "title": "Bandwidth",
@@ -272,7 +362,67 @@
               {
                 "id": "color",
                 "value": {
-                  "fixedColor": "dark-red",
+                  "fixedColor": "dark-blue",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Upload latency"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "green",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Upload jitter"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-green",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Download latency"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "purple",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Download jitter"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-purple",
                   "mode": "fixed"
                 }
               }
@@ -281,9 +431,9 @@
         ]
       },
       "gridPos": {
-        "h": 9,
-        "w": 12,
-        "x": 12,
+        "h": 17,
+        "w": 10,
+        "x": 14,
         "y": 1
       },
       "id": 12,
@@ -313,8 +463,10 @@
             "uid": "P1809F7CD0C75ACF3"
           },
           "editorMode": "code",
-          "expr": "speedtest_ping_latency_milliseconds",
+          "exemplar": false,
+          "expr": "avg(speedtest_latency_milliseconds)",
           "format": "time_series",
+          "instant": false,
           "intervalFactor": 1,
           "legendFormat": "Latency",
           "range": true,
@@ -327,15 +479,171 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "speedtest_jitter_latency_milliseconds",
+          "expr": "avg(speedtest_jittter_milliseconds)",
           "hide": false,
           "instant": false,
           "legendFormat": "Jitter",
           "range": true,
           "refId": "Jitter"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P1809F7CD0C75ACF3"
+          },
+          "editorMode": "code",
+          "expr": "avg(speedtest_upload_latency_milliseconds)",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Upload latency",
+          "range": true,
+          "refId": "Upload latency"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P1809F7CD0C75ACF3"
+          },
+          "editorMode": "code",
+          "expr": "avg(speedtest_upload_jitter_milliseconds)",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Upload jitter",
+          "range": true,
+          "refId": "Upload jitter"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P1809F7CD0C75ACF3"
+          },
+          "editorMode": "code",
+          "expr": "avg(speedtest_download_latency_milliseconds)",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Download latency",
+          "range": true,
+          "refId": "Download latency"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P1809F7CD0C75ACF3"
+          },
+          "editorMode": "code",
+          "expr": "avg(speedtest_download_jitter_milliseconds)",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Download jitter",
+          "range": true,
+          "refId": "Download jitter"
         }
       ],
       "title": "Ping",
+      "transformations": [
+        {
+          "id": "groupBy",
+          "options": {}
+        }
+      ],
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P1809F7CD0C75ACF3"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 24,
+        "x": 0,
+        "y": 18
+      },
+      "id": 20,
+      "options": {
+        "legend": {
+          "calcs": [
+            "min",
+            "mean",
+            "max",
+            "stdDev"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "editorMode": "code",
+          "expr": "speedtest_packet_loss_percentage",
+          "legendFormat": "{{server_name}}",
+          "range": true,
+          "refId": "packet loss"
+        }
+      ],
+      "title": "Packet Loss",
       "type": "timeseries"
     },
     {
@@ -344,7 +652,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 10
+        "y": 27
       },
       "id": 16,
       "panels": [],
@@ -418,7 +726,7 @@
         "h": 9,
         "w": 24,
         "x": 0,
-        "y": 11
+        "y": 28
       },
       "id": 4,
       "maxPerRow": 12,
@@ -527,7 +835,7 @@
         "h": 10,
         "w": 24,
         "x": 0,
-        "y": 20
+        "y": 37
       },
       "id": 17,
       "maxPerRow": 12,
@@ -575,7 +883,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 30
+        "y": 47
       },
       "id": 18,
       "panels": [],
@@ -647,7 +955,7 @@
         "h": 8,
         "w": 12,
         "x": 1,
-        "y": 31
+        "y": 48
       },
       "id": 19,
       "options": {
@@ -737,6 +1045,6 @@
   "timezone": "browser",
   "title": "internet connection",
   "uid": "o9mIe_Aik",
-  "version": 2,
+  "version": 1,
   "weekStart": ""
 }

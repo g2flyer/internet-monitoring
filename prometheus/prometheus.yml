@@ -20,21 +20,24 @@ rule_files:
 scrape_configs:
 
   - job_name: 'prometheus'
-
     # Override the global default and scrape targets from this job every 5 seconds.
     scrape_interval: 5s
-
     static_configs:
          - targets: ['localhost:9090']
 
 
   - job_name: 'speedtest'
-    metrics_path: /metrics
+    metrics_path: /probe
+    params:
+      script: [speedtest]
     scrape_interval: 15m
-    scrape_timeout: 60s # running speedtest needs time to complete
-    
+    scrape_timeout: 90s # running speedtest needs time to complete
     static_configs:
-      - targets: ['speedtest:9696']
+      - targets: ['speedtest:9469']
+  - job_name: 'script_exporter'
+    metrics_path: /metrics
+    static_configs:
+      - targets: ['speedtest:9469']
 
   - job_name: 'ping-http'
     metrics_path: /probe
